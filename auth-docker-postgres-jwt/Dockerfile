@@ -1,4 +1,7 @@
-FROM golang:1.21@sha256:cffaba795c36f07e372c7191b35ceaae114d74c31c3763d442982e3a4df3b39e
+# 使用官方 Golang 镜像作为构建环境
+FROM golang:1.23-alpine AS builder
+
+FROM golang:1.20
 
 # Enviroment variable
 WORKDIR /usr/src/some-api
@@ -12,5 +15,5 @@ COPY . .
 
 # Run and expose the server on port 3000
 EXPOSE 3000
-
-# CMD [ "nodemon", "build/app.js" ]
+# 容器启动时运行 Go 程序
+CMD ["./myapp"]

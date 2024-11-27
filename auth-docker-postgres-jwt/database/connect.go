@@ -2,7 +2,6 @@ package database
 
 import (
 	"app/config"
-	"app/model"
 	"fmt"
 	"strconv"
 
@@ -36,6 +35,7 @@ func ConnectDB() {
 	}
 
 	fmt.Println("Connection Opened to Database")
-	DB.AutoMigrate(&model.Product{}, &model.User{})
-	fmt.Println("Database Migrated")
+	//初始化数据库
+	//DB.AutoMigrate(&model.Product{}, &model.User{})
+	//fmt.Println("Database Migrated")
 }
