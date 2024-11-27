@@ -14,6 +14,7 @@ import (
 func ConnectDB() {
 	var err error
 	p := config.Config("DB_PORT")
+	println("DB PORT:", p)
 	port, err := strconv.ParseUint(p, 10, 32)
 
 	if err != nil {
@@ -21,7 +22,8 @@ func ConnectDB() {
 	}
 
 	dsn := fmt.Sprintf(
-		"host=db port=%d user=%s password=%s dbname=%s sslmode=disable",
+		"host=%s port=%d user=%s password=%s dbname=%s sslmode=disable",
+		config.Config("DB_HOST"),
 		port,
 		config.Config("DB_USER"),
 		config.Config("DB_PASSWORD"),

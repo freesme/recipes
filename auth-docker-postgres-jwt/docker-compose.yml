@@ -1,24 +1,24 @@
 version: '3.8'
+
 services:
-  web:
-    build: .
-    env_file:
-      - .env
-    ports:
-      - 3000:3000
-    volumes:
-      - .:/usr/src/some-api
-    command: air cmd/main.go -b 0.0.0.0
   db:
     image: postgres:alpine
+    container_name: postgres_db
     environment:
-      - POSTGRES_USER=${DB_USER}
-      - POSTGRES_PASSWORD=${DB_PASSWORD}
-      - POSTGRES_DB=${DB_NAME}
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: mydatabase  # 可选，指定默认数据库名称
     ports:
-      - ${DB_PORT}:${DB_PORT}
+      - "5432:5432"  # 映射容器的5432端口到主机的5432端口
     volumes:
-      - postgres-db:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data  # 数据持久化
+    networks:
+      - mynetwork
 
 volumes:
-  postgres-db:
+  postgres_data:  # 数据持久化存储
+    driver: local
+
+networks:
+  mynetwork:  # 定义一个网络
+    driver: bridge
